@@ -1,0 +1,9 @@
+{
+  "/v1": {
+    "target": "https://pro-api.coinmarketcap.com",
+    "secure": false,
+    "headers": {
+      "host": "pro-api.coinmarketcap.com"
+    }
+  }
+}

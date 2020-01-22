@@ -1,0 +1,11 @@
+@import '~@angular/material/theming';
+
+.fixed-top {
+  top: 0;
+  position: fixed;
+  z-index:999;
+}
+
+.content {
+  margin-top: 64px; 
+}

@@ -1,4 +1,4 @@
-import { NgModule } from "@angular/core";
+import { NgModule } from '@angular/core';
 import { CoinsService } from './coins.service';
 import { CoinsPageComponent } from './coins-page/coins-page.component';
 import { routing } from './coins-routing.module';

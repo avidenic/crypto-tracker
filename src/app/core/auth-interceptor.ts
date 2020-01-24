@@ -14,7 +14,7 @@ export class AuthInterceptor implements HttpInterceptor {
     req = req.clone({
       setHeaders: {
         'X-CMC_PRO_API_KEY': this.apiKey,
-        'Accept': 'application/json'
+        Accept: 'application/json'
       }
     });
     return next.handle(req);

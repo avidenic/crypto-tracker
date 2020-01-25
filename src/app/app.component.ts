@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { CurrencyService } from '@core/currency.service';
 
 @Component({
   selector: 'app-root',
@@ -7,8 +8,11 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   theme$: string;
-  title = 'crypto-tracker';
-  constructor() {
+  currencies: string[];
+  selected: string;
+  constructor(currencyService: CurrencyService) {
+    this.currencies = currencyService.validCurrencies;
+    this.selected = currencyService.defaultCurrency;
     this.theme$ = 'default-theme';
   }
 }

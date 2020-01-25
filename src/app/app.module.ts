@@ -13,6 +13,8 @@ import { reducers, metaReducers } from './reducers';
 
 // other 3rd party
 import { StoreModule } from '@ngrx/store';
+import { MatMenuModule, MatButtonModule } from '@angular/material';
+import { CurrencyService } from '@core/currency.service';
 
 
 @NgModule({
@@ -24,7 +26,8 @@ import { StoreModule } from '@ngrx/store';
     AppRoutingModule,
     BrowserAnimationsModule,
     MatToolbarModule,
-
+    MatMenuModule,
+    MatButtonModule,
     StoreModule.forRoot(reducers, {
       metaReducers,
       runtimeChecks: {
@@ -34,6 +37,7 @@ import { StoreModule } from '@ngrx/store';
     })
   ],
   providers: [
+    CurrencyService
   ],
   bootstrap: [AppComponent]
 })

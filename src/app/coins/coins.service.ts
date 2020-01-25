@@ -9,9 +9,16 @@ export class CoinsService {
   constructor(private client: HttpClient) {
   }
 
-  getCoins(): Observable<Coin[]> {
-    return this.client.get<ICoinsResponse>('/v1/cryptocurrency/listings/latest')
-      .pipe(
+  getCoins(currency: string): Observable<Coin[]> {   
+    return this.client.get<ICoinsResponse>('/v1/cryptocurrency/listings/latest',
+      {
+        params:
+        {
+          'start': '1',
+          'limit': '100',
+          'convert': currency
+        }
+      }).pipe(
         map(response => response.data.map(c => new Coin(c)))
       );
   }

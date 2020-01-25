@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CoinsService } from '../coins.service';
 import { Coin } from '../coins';
+import { ActivatedRoute, ParamMap } from '@angular/router';
 
 @Component({
   selector: 'app-coins-page',
@@ -9,11 +10,21 @@ import { Coin } from '../coins';
 })
 export class CoinsPageComponent implements OnInit {
   coins: Coin[];
-  displayedColumns: string[] = ['name', 'id', 'symbol', 'slug', 'totalSupply'];
+  displayedColumns: string[] = ['cmcRank', 'symbol', 'price', 'percentChange24h'];
+  selectedCurrency: string;
   ngOnInit(): void {
-    this.service.getCoins().subscribe(coins => {
-      this.coins = coins;
+    this.route.queryParams.subscribe((data: { currency: string }) => {
+      this.getCoins(data.currency);
     });
   }
-  constructor(private service: CoinsService) { }
+
+  private getCoins(currency: string): void {
+    this.selectedCurrency = currency;
+    this.service.getCoins(currency).subscribe(coins => {
+      this.coins = coins
+    });
+  }
+  constructor(
+    private service: CoinsService,
+    private route: ActivatedRoute) { }
 }

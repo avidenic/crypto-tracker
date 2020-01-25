@@ -3,12 +3,16 @@ import { CoinsService } from './coins.service';
 import { CoinsPageComponent } from './coins-page/coins-page.component';
 import { routing } from './coins-routing.module';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { AuthInterceptor } from '../core/auth-interceptor';
-import { MatTableModule, MatCardModule } from '@angular/material';
+import { AuthInterceptor } from '@core/auth-interceptor';
+import { MatTableModule } from '@angular/material';
+import { CurrencyService } from '@core/currency.service';
+import { CurrencyResolverService } from './currency-resolver.service';
 
 @NgModule({
   providers: [
     CoinsService,
+    CurrencyService,
+    CurrencyResolverService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptor,
@@ -18,8 +22,7 @@ import { MatTableModule, MatCardModule } from '@angular/material';
   imports: [
     routing,
     HttpClientModule,
-    MatTableModule,
-    MatCardModule
+    MatTableModule
   ],
   entryComponents: [CoinsPageComponent]
 })

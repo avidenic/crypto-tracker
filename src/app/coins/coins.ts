@@ -16,6 +16,7 @@ export class Coin {
 
   // we would like to map properties to javascript naming convention
   constructor(coin: ICoin) {
+    // TODO: add defensive checks
     this.id = coin.id;
     this.name = coin.name;
     this.symbol = coin.symbol;

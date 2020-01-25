@@ -1,11 +1,15 @@
 import { Routes, RouterModule } from '@angular/router';
 import { CoinsPageComponent } from './coins-page/coins-page.component';
 import { ModuleWithProviders } from '@angular/core';
+import { CurrencyResolverService } from './currency-resolver.service';
 
 const routes: Routes = [
   {
     path: '',
-    component: CoinsPageComponent
+    component: CoinsPageComponent,
+    resolve: {
+      currency: CurrencyResolverService
+    }
   }
 ];
 

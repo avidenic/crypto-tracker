@@ -88,8 +88,12 @@ export class Quote {
   }
 }
 
-export interface ICoinsResponse {
+export interface IListingsResponse {
   data: ICoin[];
+}
+
+export interface IQuotesResponse {
+  data: { [key: string]: ICoin; }
 }
 
 export interface ICoin {

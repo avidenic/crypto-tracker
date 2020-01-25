@@ -1,11 +1,11 @@
 <div [class]="'theme-wrapper ' + theme$">
   <mat-toolbar color="primary" role="toolbar" class="fixed-top">
-    <span>Coins</span>
+    <mat-label [routerLink]="['/']" queryParamsHandling="merge" class="pointer">Coins</mat-label>
     <span class="toolbar-spacer"></span>
-    <button mat-button [matMenuTriggerFor]="menu">Currency</button>
+    <button mat-button [matMenuTriggerFor]="menu">Select currency</button>
     <mat-menu #menu="matMenu">
       <ng-container *ngFor="let currency of currencies">
-        <button mat-menu-item [routerLink]="['/']" [queryParams]="{currency: currency}">{{ currency }}</button>
+        <button mat-menu-item [routerLink]="[]" [queryParams]="{currency: currency}">{{ currency }}</button>
       </ng-container>
     </mat-menu>
   </mat-toolbar>

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CoinsService } from '../coins.service';
 import { Coin } from '../coins';
-import { ActivatedRoute, ParamMap } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-coins-page',
@@ -18,12 +18,13 @@ export class CoinsPageComponent implements OnInit {
     });
   }
 
-  private getCoins(currency: string): void {
-    this.selectedCurrency = currency;
+  private getCoins(currency: string): void {    
     this.service.getCoins(currency).subscribe(coins => {
+      this.selectedCurrency = currency;
       this.coins = coins
     });
   }
+  
   constructor(
     private service: CoinsService,
     private route: ActivatedRoute) { }

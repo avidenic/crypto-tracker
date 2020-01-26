@@ -7,18 +7,23 @@ import { Observable, of, EMPTY } from 'rxjs';
 export class CurrencyResolverService implements Resolve<string> {
 
     resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<string> | Observable<never> {
-        let id = route.queryParamMap.get('currency');
-        
+        const id = route.queryParamMap.get('currency');
+
+        // if valid currency is supplied, return it
         if (this.currencyService.isValid(id)) {
             return of(id.toUpperCase());
         }
+        // force the default currency
         this.router.navigate([], {
             queryParams: {
                 currency: this.currencyService.defaultCurrency
-            }
+            },
+            queryParamsHandling: 'merge'
         });
         return EMPTY;
     }
 
-    constructor(private router: Router, private currencyService: CurrencyService) { }
+    constructor(
+        private router: Router,
+        private currencyService: CurrencyService) { }
 }

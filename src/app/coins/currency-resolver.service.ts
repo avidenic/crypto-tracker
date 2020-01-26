@@ -6,6 +6,10 @@ import { Observable, of, EMPTY } from 'rxjs';
 @Injectable()
 export class CurrencyResolverService implements Resolve<string> {
 
+    constructor(
+        private router: Router,
+        private currencyService: CurrencyService) { }
+
     resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<string> | Observable<never> {
         const id = route.queryParamMap.get('currency');
 
@@ -22,8 +26,4 @@ export class CurrencyResolverService implements Resolve<string> {
         });
         return EMPTY;
     }
-
-    constructor(
-        private router: Router,
-        private currencyService: CurrencyService) { }
 }

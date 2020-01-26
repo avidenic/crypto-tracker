@@ -6,6 +6,7 @@ import { coinmarketcap } from '@environments/environment';
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
   private apiKey: string;
+
   constructor() {
     this.apiKey = coinmarketcap.apiKey;
   }

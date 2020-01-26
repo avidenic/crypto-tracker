@@ -6,8 +6,8 @@ import { IListingsResponse, Coin, IQuotesResponse } from './coins';
 
 @Injectable()
 export class CoinsService {
-  constructor(private client: HttpClient) {
-  }
+
+  constructor(private client: HttpClient) { }
 
   getCoins(currency: string): Observable<Coin[]> {
     return this.client.get<IListingsResponse>('/v1/cryptocurrency/listings/latest',
@@ -32,7 +32,7 @@ export class CoinsService {
           convert: currency
         }
       }).pipe(
-        map(response => Object.entries(response.data).map(([, value]) => new Coin(value))),
+        map(response => Object.entries(response.data).map(([_, value]) => new Coin(value))),
         map(coins => coins[0]) // as per api specs, it should be just one
       );
   }

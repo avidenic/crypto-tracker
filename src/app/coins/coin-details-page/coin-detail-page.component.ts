@@ -11,17 +11,25 @@ import { Coin } from '../coins';
     styleUrls: ['./coin-detail-page.component.scss']
 })
 export class CoinDetailsPageComponent implements OnInit {
+
     symbol: string;
     currency: string;
     coin$: Observable<Coin>;
     btcSymbol = 'BTC';
     basicStatsColumns = ['price', 'volume24h', 'marketCap'];
     changesColumns = ['change1h', 'change24h', 'change7d'];
+
+    constructor(
+        private service: CoinsService,
+        private route: ActivatedRoute) { }
+
     ngOnInit(): void {
+        // when either changes
         combineLatest(
             this.route.params,
             this.route.queryParams
         ).pipe(
+            // map to expected values
             map(([param, query]) => {
                 return {
                     symbol: param.symbol,
@@ -33,6 +41,7 @@ export class CoinDetailsPageComponent implements OnInit {
                 this.currency = data.currency;
             })
         ).subscribe((data: { symbol: string, currency: string }) => {
+            // if we have everything, try to get values from backend
             if (data.symbol && data.currency) {
                 this.getCoin(data.symbol, data.currency);
             }
@@ -57,8 +66,4 @@ export class CoinDetailsPageComponent implements OnInit {
             })
         );
     }
-
-    constructor(
-        private service: CoinsService,
-        private route: ActivatedRoute) { }
 }

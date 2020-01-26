@@ -14,6 +14,17 @@ export class Coin {
   platform: Platform;
   quote: Quotes;
 
+  getColour(value: number): string {
+    if (value > 0) {
+      return 'green';
+    }
+    if (value < 0) {
+      return 'red';
+    }
+
+    return '';
+  }
+
   // we would like to map properties to javascript naming convention
   constructor(coin: ICoin) {
     // TODO: add defensive checks
@@ -67,9 +78,9 @@ export class Quote {
   volume30d: number;
   volume30dReported: number;
   marketCap: number;
-  percentChange1h: number;
-  percentChange24h: number;
-  percentChange7d: number;
+  change1h: number;
+  change24h: number;
+  change7d: number;
   lastUpdated: Date;
 
   constructor(quote: IQuote) {
@@ -81,9 +92,9 @@ export class Quote {
     this.volume30d = quote.volume_30d;
     this.volume30dReported = quote.volume_30d_reported;
     this.marketCap = quote.market_cap;
-    this.percentChange1h = quote.percent_change_1h;
-    this.percentChange24h = quote.percent_change_24h;
-    this.percentChange7d = quote.percent_change_7d;
+    this.change1h = quote.percent_change_1h / 100;
+    this.change24h = quote.percent_change_24h / 100;
+    this.change7d = quote.percent_change_7d / 100;
     this.lastUpdated = quote.last_updated;
   }
 }
@@ -93,7 +104,7 @@ export interface IListingsResponse {
 }
 
 export interface IQuotesResponse {
-  data: { [key: string]: ICoin; }
+  data: { [key: string]: ICoin; };
 }
 
 export interface ICoin {

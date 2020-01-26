@@ -2,7 +2,7 @@
   <mat-toolbar color="primary" role="toolbar" class="fixed-top">
     <mat-label [routerLink]="['/']" queryParamsHandling="merge" class="pointer">Coins</mat-label>
     <span class="toolbar-spacer"></span>
-    <button mat-button [matMenuTriggerFor]="menu">Select currency</button>
+    <button mat-button [matMenuTriggerFor]="menu">Select currency ({{ selected }})</button>
     <mat-menu #menu="matMenu">
       <ng-container *ngFor="let currency of currencies">
         <button mat-menu-item [routerLink]="[]" [queryParams]="{currency: currency}">{{ currency }}</button>

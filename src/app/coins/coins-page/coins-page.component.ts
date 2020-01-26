@@ -18,13 +18,13 @@ export class CoinsPageComponent implements OnInit {
     });
   }
 
-  private getCoins(currency: string): void {    
+  private getCoins(currency: string): void {
     this.service.getCoins(currency).subscribe(coins => {
       this.selectedCurrency = currency;
-      this.coins = coins
+      this.coins = coins;
     });
   }
-  
+
   constructor(
     private service: CoinsService,
     private route: ActivatedRoute) { }

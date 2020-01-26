@@ -14,9 +14,9 @@ export class CoinsService {
       {
         params:
         {
-          'start': '1',
-          'limit': '100',
-          'convert': currency
+          start: '1',
+          limit: '100',
+          convert: currency
         }
       }).pipe(
         map(response => response.data.map(c => new Coin(c)))
@@ -28,10 +28,10 @@ export class CoinsService {
       {
         params:
         {
-          'symbol': symbol,
-          'convert': currency
+          symbol,
+          convert: currency
         }
-      }).pipe(        
+      }).pipe(
         map(response => Object.entries(response.data).map(([, value]) => new Coin(value))),
         map(coins => coins[0]) // as per api specs, it should be just one
       );

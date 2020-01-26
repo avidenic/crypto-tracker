@@ -1,0 +1,81 @@
+<ng-template #loading>Loading...</ng-template>
+<mat-card *ngIf="(coin$ | async) as coin; else loading">
+    <mat-card-header>
+        <div mat-card-avatar>
+            <a aria-label="Back" [routerLink]="['/']" queryParamsHandling="merge" matTooltip="Back">
+                <mat-icon color="primary">keyboard_arrow_left</mat-icon>
+            </a>
+            <a aria-label="refresh" (click)="refresh($event)" href="#" matTooltip="Refresh">
+                <mat-icon color="primary">refresh</mat-icon>
+            </a>
+        </div>
+        <mat-card-title>Details for {{ coin.name }}</mat-card-title>
+        <mat-card-subtitle>
+            <table class="mat-table padded-table">
+                <tr class="mat-row">
+                    <td class="mat-cell">Symbol</td>
+                    <td class="mat-cell">{{ coin.symbol }}</td>
+                </tr>
+                <tr class="mat-row">
+                    <td class="mat-cell">Current rank</td>
+                    <td class="mat-cell">{{ coin.cmcRank }}</td>
+                </tr>
+                <tr class="mat-row">
+                    <td class="mat-cell">Price ({{ btcSymbol }})</td>
+                    <td class="mat-cell">{{ coin.quote[btcSymbol].price }}</td>
+                </tr>
+                <tr class="mat-row">
+                    <td class="mat-cell">Total supply</td>
+                    <td class="mat-cell">{{ coin.totalSupply }}</td>
+                </tr>
+                <tr class="mat-row">
+                    <td class="mat-cell">Available supply</td>
+                    <td class="mat-cell">{{ coin.circulatingSupply }}</td>
+                </tr>
+            </table>
+        </mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+        <span>Basic stats</span>
+        <table mat-table [dataSource]="[coin]" class="padded-table">
+            <ng-container matColumnDef="price">
+                <th mat-header-cell *matHeaderCellDef>Price</th>
+                <td mat-cell *matCellDef="let element"> {{ element.quote[currency].price | currency:currency}} </td>
+            </ng-container>
+            <ng-container matColumnDef="volume24h">
+                <th mat-header-cell *matHeaderCellDef>Volume 24h</th>
+                <td mat-cell *matCellDef="let element"> {{ element.quote[currency].volume24h | currency:currency}} </td>
+            </ng-container>
+            <ng-container matColumnDef="marketCap">
+                <th mat-header-cell *matHeaderCellDef>Market cap</th>
+                <td mat-cell *matCellDef="let element"> {{ element.quote[currency].marketCap | currency:currency}} </td>
+            </ng-container>
+            <tr mat-header-row *matHeaderRowDef="basicStatsColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: basicStatsColumns;"></tr>
+        </table>
+        <br>
+        <span>Price changes</span>
+        <table mat-table [dataSource]="[coin]" class="padded-table">
+            <ng-container matColumnDef="change1h">
+                <th mat-header-cell *matHeaderCellDef>1h</th>
+                <td mat-cell *matCellDef="let element"
+                    [style.color]="element.getColour(element.quote[currency].change1h)">
+                    {{ element.quote[currency].change1h | percent:'1.2-3' }} </td>
+            </ng-container>
+            <ng-container matColumnDef="change24h">
+                <th mat-header-cell *matHeaderCellDef>24h</th>
+                <td mat-cell *matCellDef="let element"
+                    [style.color]="element.getColour(element.quote[currency].change24h)">
+                    {{ element.quote[currency].change24h | percent:'1.2-3'}} </td>
+            </ng-container>
+            <ng-container matColumnDef="change7d">
+                <th mat-header-cell *matHeaderCellDef>7d</th>
+                <td mat-cell *matCellDef="let element"
+                    [style.color]="element.getColour(element.quote[currency].change7d)">
+                    {{ element.quote[currency].change7d | percent:'1.2-3'}} </td>
+            </ng-container>
+            <tr mat-header-row *matHeaderRowDef="changesColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: changesColumns;"></tr>
+        </table>
+    </mat-card-content>
+</mat-card>

@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { CoinsService } from '../coins.service';
 import { Coin } from '../coins';
+import { ActivatedRoute } from '@angular/router';
+import { tap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-coins-page',
@@ -9,11 +11,31 @@ import { Coin } from '../coins';
 })
 export class CoinsPageComponent implements OnInit {
   coins: Coin[];
-  displayedColumns: string[] = ['name', 'id', 'symbol', 'slug', 'totalSupply'];
+  displayedColumns: string[] = ['refresh', 'cmcRank', 'symbol', 'price', 'percentChange24h'];
+  selectedCurrency: string;
+
+  constructor(
+    private service: CoinsService,
+    private route: ActivatedRoute) { }
+
   ngOnInit(): void {
-    this.service.getCoins().subscribe(coins => {
+    this.route.queryParams.
+      pipe(
+        tap((data: { currency: string }) => {
+          this.selectedCurrency = data.currency;
+        })
+      ).subscribe((data: { currency: string }) => {
+        this.getCoins(data.currency);
+      });
+  }
+
+  refresh(e: Event): void {
+    this.getCoins(this.selectedCurrency);
+  }
+
+  private getCoins(currency: string): void {
+    this.service.getCoins(currency).subscribe(coins => {
       this.coins = coins;
     });
   }
-  constructor(private service: CoinsService) { }
 }

@@ -1,5 +1,15 @@
 <div class="container mat-elevation-z8">
   <table mat-table [dataSource]="coins" class="coins-table">
+
+    <ng-container matColumnDef="refresh">
+      <th mat-header-cell *matHeaderCellDef width="40px">
+        <a aria-label="refresh" (click)="refresh($event)" href="#" matTooltip="Refresh">
+          <mat-icon color="primary">refresh</mat-icon>
+        </a>
+      </th>
+      <td mat-cell *matCellDef="let element"></td>
+    </ng-container>
+
     <ng-container matColumnDef="cmcRank">
       <th mat-header-cell *matHeaderCellDef> Rank </th>
       <td mat-cell *matCellDef="let element"> {{ element.cmcRank }} </td>

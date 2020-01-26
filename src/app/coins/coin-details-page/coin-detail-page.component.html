@@ -5,6 +5,9 @@
             <a aria-label="Back" [routerLink]="['/']" queryParamsHandling="merge" matTooltip="Back">
                 <mat-icon color="primary">keyboard_arrow_left</mat-icon>
             </a>
+            <a aria-label="refresh" (click)="refresh($event)" href="#" matTooltip="Refresh">
+                <mat-icon color="primary">refresh</mat-icon>
+            </a>
         </div>
         <mat-card-title>Details for {{ coin.name }}</mat-card-title>
         <mat-card-subtitle>
@@ -75,9 +78,4 @@
             <tr mat-row *matRowDef="let row; columns: changesColumns;"></tr>
         </table>
     </mat-card-content>
-    <mat-card-actions>
-        <a aria-label="refresh" (click)="refresh($event)" href="#" matTooltip="Refresh">
-            <mat-icon color="primary">refresh</mat-icon>
-        </a>
-    </mat-card-actions>
 </mat-card>

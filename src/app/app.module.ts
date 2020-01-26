@@ -9,10 +9,8 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 // 1st party
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { reducers, metaReducers } from './reducers';
 
 // other 3rd party
-import { StoreModule } from '@ngrx/store';
 import { MatMenuModule, MatButtonModule, MatInputModule } from '@angular/material';
 import { CurrencyService } from '@core/currency.service';
 
@@ -28,14 +26,7 @@ import { CurrencyService } from '@core/currency.service';
     MatToolbarModule,
     MatMenuModule,
     MatButtonModule,
-    MatInputModule,
-    StoreModule.forRoot(reducers, {
-      metaReducers,
-      runtimeChecks: {
-        strictStateImmutability: true,
-        strictActionImmutability: true
-      }
-    })
+    MatInputModule
   ],
   providers: [
     CurrencyService
